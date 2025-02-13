@@ -9,6 +9,10 @@ book = Book.objects.create(title="1984", author="George Orwell", publication_yea
 # Verifying the creation
 print(book)
 
+#Expected Outcome 
+<Book: 1984 by George Orwell (1949)>
+
+
 
 
 
@@ -21,6 +25,10 @@ book = Book.objects.create(title="1984", author="George Orwell", publication_yea
 
 # Verifying the creation
 print(book)
+
+#Expected Outcome
+1984 George Orwell 1949
+
 
 
 
@@ -35,6 +43,10 @@ book = Book.objects.create(title="1984", author="George Orwell", publication_yea
 
 # Verifying the creation
 print(book)
+
+#Expected Outcome
+Nineteen Eighty-Four
+
 
 
 
@@ -51,4 +63,8 @@ book.delete()
 # Verifying deletion
 books = Book.objects.all()
 print(books)
+
+#Expected Outcome
+<QuerySet []>  # This means the book no longer exists
+
 
