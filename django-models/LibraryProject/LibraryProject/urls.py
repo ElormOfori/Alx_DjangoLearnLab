@@ -19,7 +19,7 @@ from django.urls import path
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path("", include("relationship_app.urls")),  # This links to relationship_app’s urls.py
+    
 ]
 from django.urls import path
 from .views import list_books, LibraryDetailView
