@@ -2,7 +2,7 @@ from typing import Any
 from django.shortcuts import render
 from .models import Book
 from .models import Library
-from django.views.generic import DetailView
+from django.views.generic.detail import DetailView
 
 #Function-based views
 def list_books(request):
