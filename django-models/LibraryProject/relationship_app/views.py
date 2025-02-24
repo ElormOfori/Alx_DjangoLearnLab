@@ -1,8 +1,8 @@
 from typing import Any
 from django.shortcuts import render
-from django.views.generic import DetailView
 from .models import Book
 from .models import Library
+from django.views.generic import DetailView
 
 #Function-based views
 def list_books(request):
