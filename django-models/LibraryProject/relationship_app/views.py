@@ -1,14 +1,21 @@
+from typing import Any
 from django.shortcuts import render
 from django.views.generic import DetailView
 from .models import Book, Library
 
-
-# Create your views here.
+#Function-based views
 def list_books(request):
-    books = Book.objects.all()  #Ensure this query is present
-    return render(request, "relationship_app/list_books.html", {"books": books})  #Ensure correct template is used
+    books = Book.objects.all() #fetching all books from the database
+    context = {'list_books':books} #creates a context dictionary with list of books
+    return render(request, 'relationship_app/list_books.html', context)
 
+#class-based view for listing books in a library
 class LibraryDetailView(DetailView):
     model = Library
-    template_name = "relationship_app/library_detail.html"  #Ensure correct template is used
-    context_object_name = "library"  # Allows template to use {{ library }} instead of {{ object }}
+    template_name = 'relationship_app/library_detail.html'
+    
+    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
+        context = super().get_context_data(**kwargs)
+        library = self.get_object()
+        context['books_list'] = library.get_books_list()
+        return context
