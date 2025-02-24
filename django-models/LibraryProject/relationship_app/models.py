@@ -2,35 +2,49 @@ from django.db import models
 from django.contrib.auth.models import User
 
 # Create your models here.
-from django.db import models
 
+# Create your models here.
 class Author(models.Model):
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=50)
 
     def __str__(self):
         return self.name
 
 class Book(models.Model):
     title = models.CharField(max_length=200)
-    author = models.ForeignKey(Author, on_delete=models.CASCADE)
-
+    author = models.ForeignKey(Author, on_delete=models.CASCADE, related_name='author')
+    
     def __str__(self):
-        return self.title
+        return f"{self.title} by {self.author}"  
+
+#Extending Book Model with Custom Permissions
+    class Meta(models.Model):
+        Permissions_Choices =(
+            ('can_add_book', 'can_add_book'),
+            ('can_change_book', 'can_change_book'),
+            ('can_delete_book', 'can_delete_book'),
+
+        )
+    permissions = models.CharField(max_length=50,  choices='Permissions_Choices')
+    meta = models.TextField()
+    
+    def __str__(self):
+        return f'{self.user.username} - {self.permissions}'
 
 class Library(models.Model):
     name = models.CharField(max_length=200)
-    books = models.ManyToManyField(Book)
+    books = models.ManyToManyField(Book, related_name='libraries')
 
     def __str__(self):
-        return self.name
+        return self.name   
 
 class Librarian(models.Model):
-    name = models.CharField(max_length=100)
-    library = models.OneToOneField(Library, on_delete=models.CASCADE)
+    name = models.CharField(max_length=200)
+    library = models.OneToOneField(Library, on_delete=models.CASCADE, related_name='librarians')
 
     def __str__(self):
         return self.name
-
+    
 #Extending User Model with a UserProfile
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)

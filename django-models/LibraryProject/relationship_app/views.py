@@ -82,3 +82,16 @@ def is_member(user):
 @user_passes_test(is_member)
 def member_view(request):
     return render(request, 'relationship_app/member_view.html')
+
+#Views to Enforce Permissions
+@permission_required("relationship_app.can_add_book")
+def can_add_book_view(request):
+    return render(request, 'relationship_app/can_add_book.html')
+
+@permission_required("relationship_app.can_change_book")
+def can_change_book_view(request):
+    return render(request, 'relationship_app/can_change_book.html')
+
+@permission_required("relationship_app.can_delete_book")
+def can_delete_book_view(request):
+    return render(request, 'relationship_app/can_delete_book.html')
