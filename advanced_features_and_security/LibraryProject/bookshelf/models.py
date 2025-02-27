@@ -46,3 +46,33 @@ class CustomUser(AbstractUser):
 
     def __str__(self):
         return self.username
+    
+
+    class Book(models.Model):
+        title = models.CharField(max_length=200)
+        author = models.CharField(max_length=200)
+        publication_date = models.DateField(default = '2020-01-01')
+        modified_by = models.ForeignKey()
+
+#Extending Book Model with Custom Permissions
+    class Meta:
+        permissions =(
+            ('can_create', 'Can create'),
+            ('can_view', 'Can view'),
+            ('can_edit', 'Can edit'),
+            ('can_delete', 'Can delete'),
+
+        )
+
+    def _str_(self):
+        return f"{self.title} by {self.author} published on {self.publication_date}"
+
+
+
+    class Meta:
+        permissions = [
+            ('can_view', 'Can view'),
+            ('can_create', 'Can create'),
+            ('can_edit', 'Can edit'),
+            ('can_delete', 'Can delete'),
+        ]
