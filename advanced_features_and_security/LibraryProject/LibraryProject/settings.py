@@ -140,3 +140,15 @@ SECURE_CONTENT_TYPE_NOSNIFF = True #prevent browsers from MIME-sniffing a respon
 CSRF_COOKIE_SECURE = True #ensure CSRF cookies are only transmitted over HTTPS.
 
 SESSION_COOKIE_SECURE = True #ensure session cookies are only transmitted over HTTPS
+
+
+SECURE_SSL_REDIRECT = True #Redirects all non-HTTPS requests to HTTPS
+
+SECURE_HSTS_SECONDS = 31536000 #Sets HSTS to 1 year (31536000 seconds)
+#Instructs browsers to only  access the site via HTTPS for the specified time
+
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True #Includes all subdomains in HSTS policy
+
+SECURE_HSTS_PRELOAD = True #Preloads the HSTS policy in the browser
+
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https') #Enables secure proxy support for HTTPS requests
