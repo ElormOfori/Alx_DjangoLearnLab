@@ -51,3 +51,16 @@ def delete_book(request, pk):
         book.delete()
         return redirect('book_list')
     return render(request, 'bookshelf/deleted-book.html', {'book':book})
+
+@login_required
+def form_example(request):
+    if request.method == 'POST':
+        form = ExampleForm(request.POST)
+        if form.is_valid():
+            # Process form data here
+            form.save()  # Or any other processing
+            return redirect('success')  # Redirect after successful submission
+    else:
+        form = ExampleForm()
+
+    return render(request, 'form_example.html', {'form': form})
