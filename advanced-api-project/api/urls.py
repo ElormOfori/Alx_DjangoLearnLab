@@ -1,4 +1,5 @@
 from django.urls import path
+from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated, AllowAny 
 from .views import (
     BookListView, 
     BookDetailView, 
