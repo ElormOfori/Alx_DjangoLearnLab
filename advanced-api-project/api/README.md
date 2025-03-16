@@ -18,8 +18,8 @@ DELETE /api/books/<id>/ - Delete a book (Authenticated users only).
 | GET | `/books/` | Retrieve all books | Public (no authentication required) |
 | GET | `/books/<int:pk>/` | Retrieve a specific book by ID | Public |
 | POST | `/books/create/` | Create a new book | Authenticated users only |
-| PUT | `/books/<int:pk>/update/` | Update an existing book | Authenticated users only |
-| DELETE | `/books/<int:pk>/delete/` | Delete a book | Authenticated users only |
+| PUT | `/books/update/<int:pk>/` | Update an existing book | Authenticated users only |
+| DELETE | `/books/delete/<int:pk>/` | Delete a book | Authenticated users only |
 
 #Permissions and Authentication
 - The API uses Django REST Framework’s permission classes to control access.
@@ -29,5 +29,20 @@ DELETE /api/books/<id>/ - Delete a book (Authenticated users only).
 #Testing the API
 You can test the API using:
 #Postman
+
+#Book API - Filtering, Searching, and Ordering
+
+#Filtering Books
+Filter by title, author, or publication year:
+
+
+#Searching Books
+Search across title and author:
+
+#Ordering Books
+Sort books by title or publication year:
+
+
+
 
 
