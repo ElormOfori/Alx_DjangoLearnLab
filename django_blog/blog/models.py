@@ -12,3 +12,14 @@ class Post(models.Model):
     def __str__(self):
         return self.title
 
+
+
+class Comment(models.Model):
+    post = models.ForeignKey('Post', on_delete=models.CASCADE, related_name='comments')  # Links to a Post
+    author = models.ForeignKey(User, on_delete=models.CASCADE)  # Links to a User
+    content = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)  # Auto-set when comment is created
+    updated_at = models.DateTimeField(auto_now=True)  # Auto-update on edit
+
+    def __str__(self):
+        return f"Comment by {self.author} on {self.post}"

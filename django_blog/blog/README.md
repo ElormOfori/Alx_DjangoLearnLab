@@ -213,3 +213,13 @@ This documentation provides a detailed explanation of how to set up user authent
 
 For any questions or enhancements, refer to the official [Django documentation](https://docs.djangoproject.com/en/stable/topics/auth/).
 
+
+# Comment Functionality
+Users can:
+- Add comments (authenticated users only).
+- Edit their own comments.
+- Delete their own comments.
+- View all comments under a blog post.
+Permissions:
+- Only authenticated users can comment.
+- Only the author of a comment can edit or delete it.
