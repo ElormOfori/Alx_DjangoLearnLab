@@ -4,25 +4,31 @@ from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
-from rest_framework.permissions import AllowAny, IsAuthenticated
-from .serializers import UserSerializer, RegisterSerializer
-from django.contrib.auth import get_user_model
-
-User = get_user_model()
+from rest_framework import permissions
+from .serializers import UserSerializer
+from accounts.models import CustomUser
+from rest_framework import authentication
 
 class RegisterView(APIView):
-    permission_classes = [AllowAny]
+    permission_classes = [permissions.AllowAny]
 
     def post(self, request):
-        serializer = RegisterSerializer(data=request.data)
-        if serializer.is_valid():
-            user = serializer.save()
-            token, created = Token.objects.get_or_create(user=user)
+        username = request.data.get('username')
+        password = request.data.get('password')
+        email = request.data.get('email')
+
+        user = CustomUser.objects.create_user(username=username, password=password, email=email)
+        token, created = Token.objects.get_or_create(user=user)
+
+        if (user and token):
             return Response({'token': token.key, 'user': UserSerializer(user).data}, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        else:
+            return Response({'error':'Something happend'}, status=status.HTTP_400_BAD_REQUEST)
+    
+        
 
 class LoginView(APIView):
-    permission_classes = [AllowAny]
+    permission_classes = [permissions.AllowAny]
 
     def post(self, request):
         username = request.data.get('username')
@@ -35,10 +41,11 @@ class LoginView(APIView):
 
 
 class ProfileView(APIView):
-    permission_classes = [IsAuthenticated]
+    authentication_classes = [authentication.TokenAuthentication]
+    permission_classes = [permissions.IsAuthenticated]
 
     def get(self, request):
-        """Returns the profile details of the authenticated user."""
+        #Returns the profile details of the authenticated user.
         user = request.user
         serializer = UserSerializer(user)
         return Response(serializer.data)
