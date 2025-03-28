@@ -137,3 +137,27 @@ Running the Server
 
 python manage.py runserver
 
+
+
+
+#Social Media API
+
+#Endpoints
+
+#User Authentication
+- POST /api/accounts/register/ - Register a new user
+- POST /api/accounts/login/ - Login and receive an authentication token
+
+#Posts
+- GET /api/posts/posts/ - List all posts
+- POST /api/posts/posts/ - Create a new post
+- GET /api/posts/posts/{id}/ - Retrieve a specific post
+- PUT /api/posts/posts/{id}/ - Update a post (Author only)
+- DELETE /api/posts/posts/{id}/ - Delete a post (Author only)
+
+#Comments
+- GET /api/posts/comments/ - List all comments
+- POST /api/posts/comments/ - Add a comment
+- GET /api/posts/comments/{id}/ - Retrieve a specific comment
+- PUT /api/posts/comments/{id}/ - Update a comment (Author only)
+- DELETE /api/posts/comments/{id}/ - Delete a comment (Author only)
