@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from rest_framework import status
+from rest_framework import generics, status
 from rest_framework import permissions
 from rest_framework.permissions import IsAuthenticated
 from .serializers import UserSerializer
@@ -45,6 +45,7 @@ class LoginView(APIView):
 class ProfileView(APIView):
     authentication_classes = [authentication.TokenAuthentication]
     permission_classes = [permissions.IsAuthenticated]
+    queryset = CustomUser.objects.all()
 
     def get(self, request):
         #Returns the profile details of the authenticated user.
@@ -53,7 +54,7 @@ class ProfileView(APIView):
         return Response(serializer.data)
     
 
-class FollowUserView(APIView):
+class FollowUserView(generics.GenericAPIView):
     permission_classes = [IsAuthenticated]
 
     def post(self, request, user_id):
@@ -61,8 +62,9 @@ class FollowUserView(APIView):
         request.user.follow(user_to_follow)
         return Response({"message": "User followed successfully"}, status=status.HTTP_200_OK)
 
-class UnfollowUserView(APIView):
+class UnfollowUserView(generics.GenericAPIView):
     permission_classes = [IsAuthenticated]
+    queryset = CustomUser.objects.all()
 
     def post(self, request, user_id):
         user_to_unfollow = get_object_or_404(CustomUser, id=user_id)
