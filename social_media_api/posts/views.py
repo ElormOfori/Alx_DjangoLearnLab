@@ -4,6 +4,7 @@ from rest_framework.permissions import IsAuthenticated
 from .models import Post, Comment
 from .serializers import PostSerializer, CommentSerializer
 from rest_framework import filters
+from accounts.models import CustomUser
 
 # Create your views here.
 
@@ -31,5 +32,5 @@ class FeedView(generics.ListAPIView):
     serializer_class = PostSerializer
 
     def get_queryset(self):
-        user = self.request.user
-        return Post.objects.filter(author__in=user.following.all()).order_by('-created_at')
+        following_users = self.request.user.following.all()
+        return Post.objects.filter(author__in=following_users).order_by('-created_at')
