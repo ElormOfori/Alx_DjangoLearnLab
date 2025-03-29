@@ -4,7 +4,7 @@ services:
     env: python
     plan: free
     buildCommand: pip install -r requirements.txt
-    startCommand: gunicorn social_media_api.wsgi
+    startCommand: gunicorn --bind 0.0.0.0:$PORT social_media_api.wsgi
     envVars:
       - key: PYTHON_VERSION
         value: 3.9.0
