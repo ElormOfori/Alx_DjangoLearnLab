@@ -60,6 +60,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'social_media_api.urls'
@@ -88,6 +90,7 @@ WSGI_APPLICATION = 'social_media_api.wsgi.application'
 
 import dj_database_url
 import os
+PORT = os.environ.get('PORT', 8000)
 DATABASES = {
     'default': dj_database_url.config(conn_max_age=600) if 'DATABASE_URL' in os.environ else {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -130,7 +133,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR /'static')
+STATIC_ROOT = os.path.join(BASE_DIR /'staticfiles')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
